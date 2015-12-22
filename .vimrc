@@ -17,6 +17,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tmhedberg/SimpylFold'
 
+" Snippets
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
 " Python syntax check
 Plugin 'vim-scripts/Pydiction'
 
@@ -85,3 +92,13 @@ autocmd BufReadPost *
 " ***************************
 let g:pydiction_location = '/home/miko/.vim/bundle/Pydiction/complete-dict'                                                                                                                                          
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" For local replace
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left><CR>
+
+" For global replace
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
