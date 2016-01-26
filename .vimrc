@@ -1,3 +1,18 @@
+set spell spelllang=en_us
+
+augroup reload_vimrc " {
+    autocmd!
+    autocmd! BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
+let mapleader = ","
+
+vnoremap <Leader>s :sort<cr>
+
+" Keep selection when move block of text...
+vnoremap < <gv 
+vnoremap > >gv
+
 set nocompatible
 filetype off 
 
@@ -12,6 +27,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 " filesystem
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
 
 " auto-completion stuff
 Plugin 'Valloric/YouCompleteMe'
@@ -27,6 +43,8 @@ Plugin 'honza/vim-snippets'
 " Python syntax check
 Plugin 'vim-scripts/Pydiction'
 
+Plugin 'alfredodeza/coveragepy.vim'
+
 " XML/HTML
 Plugin 'sukima/xmledit'
 
@@ -34,18 +52,28 @@ Plugin 'sukima/xmledit'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn'
 
+Plugin 'powerline/powerline'
+
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
 
 " All of your Plugins must be added before the following line
 call vundle#end()
 
+execute pathogen#infect()
 
 filetype plugin indent on                                                                                                                                                                                            
 let g:SimpylFold_docstring_preview = 1 
 
 "autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
@@ -98,7 +126,22 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " For local replace
-nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left><CR>
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 
 " For global replace
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+let g:pymode_virtualenv = 1
+
+function! s:StringifyAsJavaString() 
+    execute 's/"/\\\"/g'
+endfunction
+
+command! MakeString :call s:StringifyAsJavaString()
+
+command! FormatXml :execute "%!xmllint --format -"
+
+nnoremap <leader>sp :normal! mm[s1z=`m<cr>
+
+nnoremap m1 :normal! kmmjdd{p`m<cr>
+nnoremap <leader>f :FormatXml<cr>
