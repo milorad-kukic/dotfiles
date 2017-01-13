@@ -1,3 +1,7 @@
+cp .vimrc ~
+cp .tmux.conf ~
+cp .tern-config ~
+
 sudo sed -i -e '1iTERM=xterm-256color\' /etc/environment
 
 mkdir -p ~/.vim/tmp/backup
@@ -24,3 +28,5 @@ cd ~/.vim/bundle/YouCompleteMe
 ./install.py --tern-completer
 
 sudo apt-get install exuberant-ctags
+
+sudo npm install -g jshint
