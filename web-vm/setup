@@ -1,0 +1,26 @@
+sudo sed -i -e '1iTERM=xterm-256color\' /etc/environment
+
+mkdir -p ~/.vim/tmp/backup
+mkdir -p ~/.vim/tmp/swap
+mkdir -p ~/.vim/tmp/undo
+
+
+sudo apt-get install -y build-essential cmake
+sudo apt-get install -y python-dev python3-dev
+
+sudo apt-get install -y nodejs
+sudo apt-get install -y npm
+
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+vim +PluginInstall +qall
+
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --tern-completer
+
+sudo apt-get install exuberant-ctags
